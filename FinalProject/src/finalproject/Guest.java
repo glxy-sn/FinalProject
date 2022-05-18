@@ -3,22 +3,36 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package finalproject;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.awt.event.*;
 import javax.swing.*;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author mac
  */
 public class Guest extends javax.swing.JFrame {
-    Connector conn = new Connector();
     JFrame window = new JFrame("Psychologist Appointment");
     /**
      * Creates new form Menu
      */
     public Guest() {
         initComponents();
-        
+    }
+    
+    private void hapusLayar(){
+        txtName.setText("");
+        noBPJS.setText("");
+        telp.setText("");
+        age.setText("");
+        gender.setSelectedItem("");
+        disease.setSelectedItem("");
     }
 
     /**
@@ -61,7 +75,7 @@ public class Guest extends javax.swing.JFrame {
         Radio8AM = new javax.swing.JRadioButton();
         Radio1PM = new javax.swing.JRadioButton();
         Radio6PM = new javax.swing.JRadioButton();
-        date = new com.toedter.calendar.JDateChooser();
+        appoinmentDate = new com.toedter.calendar.JDateChooser();
         txtName = new javax.swing.JTextField();
 
         jRadioButton3.setText("1.00 PM");
@@ -225,7 +239,7 @@ public class Guest extends javax.swing.JFrame {
                             .addComponent(gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(disease, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(age, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(appoinmentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -260,7 +274,7 @@ public class Guest extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(appoinmentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -324,19 +338,63 @@ public class Guest extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-
-        if (txtName.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Please fill your name");
-            txtName.requestFocus();
-        }else if(noBPJS.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Please fill your BPJS number");
-            noBPJS.requestFocus();
-        }else if(telp.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Please fill your phone number");
-            telp.requestFocus();
-        }else if(age.getText().equals("")){
-            JOptionPane.showMessageDialog(null, "Please fill your age");
-            age.requestFocus();
+        String name = txtName.getText();
+        String bpjs = noBPJS.getText();
+        String phone = telp.getText();
+        String year = age.getText();
+        
+        String apptime = null;
+        if (Radio8AM.isSelected()){
+            apptime = "8.00 AM";
+        }else if (Radio1PM.isSelected()){
+            apptime = "1.00 PM";
+        }else if (Radio6PM.isSelected()){
+            apptime = "6.00 PM";
+        }
+        
+        String JK = null;
+        if (gender.getSelectedItem().equals("Female")){
+            JK = "Female";
+        }else if (gender.getSelectedItem().equals("Male")){
+            JK = "Male";
+        }else if (gender.getSelectedItem().equals("Rather not to say")){
+            JK = "Rather not to say";
+        }
+       
+        String ds = null;
+        if (disease.getSelectedItem().equals("Consultation")){
+            ds = "Consultation";
+        }else if (disease.getSelectedItem().equals("Early Childhood Psychologist")){
+            ds = "Early Childhood Psychologist";
+        }else if (disease.getSelectedItem().equals("Personality Psychologist")){
+            ds = "Personality Psychologist";
+        }else if (disease.getSelectedItem().equals("Counseling Psychologist")){
+            ds = "Counseling Psychologist";
+        }else if (disease.getSelectedItem().equals("Career psychologist")){
+            ds = "Career psychologist";
+        }
+        
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+        String appoinment = dateformat.format(appoinmentDate.getDate());
+        
+        
+        try{
+            if (txtName.getText().equals("") || noBPJS.getText().equals("")|| telp.getText().equals("") || age.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Data cannot be empty", "Caution", JOptionPane.ERROR_MESSAGE);
+            hapusLayar();
+            }else{
+                PreparedStatement ps;
+                String query = "INSERT INTO 'data_user' (`name`, `BPJS`, `phone`, `gender`, `age`, `complaints`, `apt_date`, `apt_time`) VALUES (?,?,?,?,?,?,?,?)";
+                ps = Connector.getConnection().prepareStatement(query);
+                    if (ps.executeUpdate() > 0){
+                        JOptionPane.showMessageDialog(null, "Input Success");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Input Failed");
+                    }
+            }
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(this, "You already registered", "Message", JOptionPane.WARNING_MESSAGE);
+            hapusLayar();
         }
     }//GEN-LAST:event_submitActionPerformed
 
@@ -384,6 +442,7 @@ public class Guest extends javax.swing.JFrame {
     private javax.swing.JRadioButton Radio8AM;
     private javax.swing.JTextField age;
     private javax.swing.JCheckBox agreement;
+    private com.toedter.calendar.JDateChooser appoinmentDate;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
@@ -393,7 +452,6 @@ public class Guest extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup7;
     private javax.swing.ButtonGroup buttonGroup8;
     private javax.swing.JButton cancelGuest;
-    private com.toedter.calendar.JDateChooser date;
     private javax.swing.JComboBox<String> disease;
     private javax.swing.JComboBox<String> gender;
     private com.toedter.calendar.JDayChooser jDayChooser1;

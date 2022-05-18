@@ -103,7 +103,7 @@
                           <Component id="gender" min="-2" max="-2" attributes="0"/>
                           <Component id="disease" min="-2" max="-2" attributes="0"/>
                           <Component id="age" alignment="0" min="-2" pref="67" max="-2" attributes="0"/>
-                          <Component id="date" min="-2" max="-2" attributes="0"/>
+                          <Component id="appoinmentDate" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -149,7 +149,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                  <Component id="date" min="-2" max="-2" attributes="0"/>
+                  <Component id="appoinmentDate" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -360,7 +360,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Radio6PMActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="date">
+    <Component class="com.toedter.calendar.JDateChooser" name="appoinmentDate">
     </Component>
     <Component class="javax.swing.JTextField" name="txtName">
       <Events>

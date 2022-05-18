@@ -4,26 +4,26 @@
  */
 package finalproject;
 import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author mac
  */
 public class Connector {
-    String DBurl = "jdbc:mysql://localhost/fp_pbo";
-    String DBusername = "root";
-    String DBpasswowrd = "";
     
-    Connection conn;
-    Statement statement;
-
-    public Connector() {
+    public static Connection getConnection() {
+        Connection conn = null;
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            conn = (Connection) DriverManager.getConnection(DBurl, DBusername, DBpasswowrd);
+            conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/fp_pbo?useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
             System.out.println("Connection Success");
         }catch(Exception ex){
             System.out.println("Connection Failed" + ex.getMessage());
         }
+        return conn;
     }
 }

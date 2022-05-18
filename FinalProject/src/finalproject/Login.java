@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package finalproject;
+import java.awt.event.*;
+import javax.swing.*;
 
 /**
  *
@@ -15,6 +17,8 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        Connector conn = new Connector();
+        JFrame window = new JFrame("Psychologist Appointment");
     }
 
     /**
