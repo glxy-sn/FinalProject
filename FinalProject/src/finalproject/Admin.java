@@ -7,6 +7,11 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.awt.event.*;
 import javax.swing.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,13 +40,13 @@ public class Admin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        RegistPass = new javax.swing.JPasswordField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
-        jButton1 = new javax.swing.JButton();
+        RegistEmail = new javax.swing.JTextPane();
+        submitAdmLogin = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        cancelAdmLogin = new javax.swing.JButton();
         createAdmin = new javax.swing.JLabel();
 
         jTextArea1.setColumns(20);
@@ -59,12 +64,12 @@ public class Admin extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel3.setText("Password");
 
-        jScrollPane2.setViewportView(jTextPane1);
+        jScrollPane2.setViewportView(RegistEmail);
 
-        jButton1.setText("Submit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        submitAdmLogin.setText("Submit");
+        submitAdmLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                submitAdmLoginActionPerformed(evt);
             }
         });
 
@@ -73,10 +78,10 @@ public class Admin extends javax.swing.JFrame {
 
         jLabel5.setText("Don't have an account?");
 
-        jButton3.setText("Cancel");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        cancelAdmLogin.setText("Cancel");
+        cancelAdmLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                cancelAdmLoginActionPerformed(evt);
             }
         });
 
@@ -101,13 +106,13 @@ public class Admin extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
+                            .addComponent(RegistPass, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                             .addComponent(jScrollPane2)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(105, Short.MAX_VALUE)
-                        .addComponent(jButton3)
+                        .addComponent(cancelAdmLogin)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(submitAdmLogin)
                         .addGap(41, 41, 41)))
                 .addGap(74, 74, 74))
             .addGroup(layout.createSequentialGroup()
@@ -131,15 +136,15 @@ public class Admin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(RegistPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(15, 15, 15)
                         .addComponent(jLabel3)))
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
+                    .addComponent(submitAdmLogin)
+                    .addComponent(cancelAdmLogin))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -150,13 +155,35 @@ public class Admin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void submitAdmLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitAdmLoginActionPerformed
+        PreparedStatement ps;
+        ResultSet rs;
+        String email = RegistEmail.getText();
+        String pass = RegistPass.getText();
+        String query = "SELECT * FROM `data_login` WHERE `email`=? AND `pass`=?";
+        try {
+            ps = Connector.getConnection().prepareStatement(query);
+            ps.setString(1,email);
+            ps.setString(2,pass);
+            rs = ps.executeQuery();
+            if (rs.next()){
+                JOptionPane.showMessageDialog(null, "Login Success");
+            }else{
+                JOptionPane.showMessageDialog(null, "Login Failed");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_submitAdmLoginActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void cancelAdmLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelAdmLoginActionPerformed
+        Login lgn = new Login();
+        lgn.setVisible(true);
+        lgn.pack();
+        lgn.setLocationRelativeTo(null);
+        lgn.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+    }//GEN-LAST:event_cancelAdmLoginActionPerformed
 
     private void createAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_createAdminMouseClicked
         RegistAdmin rga = new RegistAdmin();
@@ -167,54 +194,21 @@ public class Admin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_createAdminMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Admin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Admin().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextPane RegistEmail;
+    private javax.swing.JPasswordField RegistPass;
+    private javax.swing.JButton cancelAdmLogin;
     private javax.swing.JLabel createAdmin;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JButton submitAdmLogin;
     // End of variables declaration//GEN-END:variables
 }

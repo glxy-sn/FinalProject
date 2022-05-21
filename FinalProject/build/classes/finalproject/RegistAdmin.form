@@ -64,9 +64,9 @@
                               <Component id="RegistConfPass" min="-2" pref="195" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="RegistCancel" min="-2" pref="113" max="-2" attributes="0"/>
+                              <Component id="cancelRegAdmin" min="-2" pref="113" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="RegistCreate" min="-2" pref="113" max="-2" attributes="0"/>
+                              <Component id="createRegAdmin" min="-2" pref="113" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -107,8 +107,8 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="RegistCreate" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="RegistCancel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="createRegAdmin" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cancelRegAdmin" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="23" max="32767" attributes="0"/>
           </Group>
@@ -156,12 +156,12 @@
         <Property name="text" type="java.lang.String" value="Confirm Password"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="RegistCreate">
+    <Component class="javax.swing.JButton" name="createRegAdmin">
       <Properties>
         <Property name="text" type="java.lang.String" value="Create"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RegistCreateActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createRegAdminActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="RegistPass">
@@ -178,10 +178,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RegistEmailActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="RegistCancel">
+    <Component class="javax.swing.JButton" name="cancelRegAdmin">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancel"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelRegAdminActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

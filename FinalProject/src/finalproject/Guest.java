@@ -31,8 +31,9 @@ public class Guest extends javax.swing.JFrame {
         noBPJS.setText("");
         telp.setText("");
         age.setText("");
-        gender.setSelectedItem("");
-        disease.setSelectedItem("");
+        gender.setSelectedItem("[blank]");
+        disease.setSelectedItem("[blank]");
+        buttonGroup.clearSelection();
     }
 
     /**
@@ -45,16 +46,22 @@ public class Guest extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
-        buttonGroup3 = new javax.swing.ButtonGroup();
-        buttonGroup4 = new javax.swing.ButtonGroup();
-        buttonGroup5 = new javax.swing.ButtonGroup();
-        buttonGroup6 = new javax.swing.ButtonGroup();
+        buttonGroup = new javax.swing.ButtonGroup();
         jDayChooser1 = new com.toedter.calendar.JDayChooser();
         jRadioButton3 = new javax.swing.JRadioButton();
-        buttonGroup7 = new javax.swing.ButtonGroup();
-        buttonGroup8 = new javax.swing.ButtonGroup();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jPanel1 = new javax.swing.JPanel();
+        submit = new javax.swing.JButton();
+        appoinmentDate = new com.toedter.calendar.JDateChooser();
+        cancelGuest = new javax.swing.JButton();
+        txtName = new javax.swing.JTextField();
+        noBPJS = new javax.swing.JTextField();
+        telp = new javax.swing.JTextField();
+        gender = new javax.swing.JComboBox<>();
+        age = new javax.swing.JTextField();
+        disease = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        Radio8AM = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -63,20 +70,9 @@ public class Guest extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         agreement = new javax.swing.JCheckBox();
-        jLabel8 = new javax.swing.JLabel();
-        submit = new javax.swing.JButton();
-        cancelGuest = new javax.swing.JButton();
-        noBPJS = new javax.swing.JTextField();
-        telp = new javax.swing.JTextField();
-        gender = new javax.swing.JComboBox<>();
-        age = new javax.swing.JTextField();
-        disease = new javax.swing.JComboBox<>();
-        jLabel9 = new javax.swing.JLabel();
-        Radio8AM = new javax.swing.JRadioButton();
         Radio1PM = new javax.swing.JRadioButton();
+        jLabel8 = new javax.swing.JLabel();
         Radio6PM = new javax.swing.JRadioButton();
-        appoinmentDate = new com.toedter.calendar.JDateChooser();
-        txtName = new javax.swing.JTextField();
 
         jRadioButton3.setText("1.00 PM");
         jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -86,38 +82,6 @@ public class Guest extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
-        jLabel1.setText(" Psychologist Appointment");
-
-        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel2.setText("Name");
-
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel3.setText("No. BPJS ");
-
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel4.setText("Telp");
-
-        jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel5.setText("Gender");
-
-        jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel6.setText("Disease Complaints");
-
-        jLabel7.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel7.setText("Age");
-
-        agreement.setText("<html> By checking this box, you are agreeing to our terms of service and the data that you fullfill are true");
-        agreement.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        agreement.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agreementActionPerformed(evt);
-            }
-        });
-
-        jLabel8.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jLabel8.setText("Appointment Date");
 
         submit.setBackground(new java.awt.Color(36, 160, 237));
         submit.setText("Submit");
@@ -132,6 +96,12 @@ public class Guest extends javax.swing.JFrame {
         cancelGuest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelGuestActionPerformed(evt);
+            }
+        });
+
+        txtName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNameActionPerformed(evt);
             }
         });
 
@@ -164,7 +134,7 @@ public class Guest extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel9.setText("Appointment Time");
 
-        buttonGroup1.add(Radio8AM);
+        buttonGroup.add(Radio8AM);
         Radio8AM.setText("8.00 AM");
         Radio8AM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -172,7 +142,36 @@ public class Guest extends javax.swing.JFrame {
             }
         });
 
-        buttonGroup1.add(Radio1PM);
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
+        jLabel1.setText(" Psychologist Appointment");
+
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel2.setText("Name");
+
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel3.setText("No. BPJS ");
+
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel4.setText("Telp");
+
+        jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel5.setText("Gender");
+
+        jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel6.setText("Disease Complaints");
+
+        jLabel7.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel7.setText("Age");
+
+        agreement.setText("<html> By checking this box, you are agreeing to our terms of service and the data that you fullfill are true");
+        agreement.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        agreement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agreementActionPerformed(evt);
+            }
+        });
+
+        buttonGroup.add(Radio1PM);
         Radio1PM.setText("1.00 PM");
         Radio1PM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,7 +179,10 @@ public class Guest extends javax.swing.JFrame {
             }
         });
 
-        buttonGroup1.add(Radio6PM);
+        jLabel8.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jLabel8.setText("Appointment Date");
+
+        buttonGroup.add(Radio6PM);
         Radio6PM.setText("6.00 PM");
         Radio6PM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,49 +190,42 @@ public class Guest extends javax.swing.JFrame {
             }
         });
 
-        txtName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNameActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(107, 107, 107)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(92, 92, 92))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
                         .addGap(138, 138, 138)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(noBPJS, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(telp, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(agreement, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(95, 95, 95)
                         .addComponent(cancelGuest, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel7)
                             .addComponent(jLabel6)
                             .addComponent(jLabel8)
                             .addComponent(jLabel9))
                         .addGap(63, 63, 63)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(Radio8AM)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(Radio1PM)
@@ -240,43 +235,43 @@ public class Guest extends javax.swing.JFrame {
                             .addComponent(disease, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(age, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(appoinmentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(noBPJS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(telp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(gender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(age, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(disease, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(appoinmentDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(Radio8AM)
                     .addComponent(Radio1PM)
@@ -284,46 +279,31 @@ public class Guest extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(agreement, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(submit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cancelGuest))
+                .addGap(44, 44, 44))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(137, 137, 137))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void agreementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agreementActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_agreementActionPerformed
-
-    private void cancelGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelGuestActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cancelGuestActionPerformed
-
-    private void telpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telpActionPerformed
-
-    private void genderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genderActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_genderActionPerformed
-
-    private void ageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ageActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ageActionPerformed
-
-    private void diseaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diseaseActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_diseaseActionPerformed
-
-    private void Radio8AMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Radio8AMActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Radio8AMActionPerformed
-
-    private void Radio1PMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Radio1PMActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Radio1PMActionPerformed
 
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
         // TODO add your handling code here:
@@ -333,15 +313,48 @@ public class Guest extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Radio6PMActionPerformed
 
+    private void Radio1PMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Radio1PMActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Radio1PMActionPerformed
+
+    private void agreementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agreementActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_agreementActionPerformed
+
+    private void Radio8AMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Radio8AMActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Radio8AMActionPerformed
+
+    private void diseaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diseaseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_diseaseActionPerformed
+
+    private void ageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ageActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ageActionPerformed
+
+    private void genderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_genderActionPerformed
+
+    private void telpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_telpActionPerformed
+
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
-       // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
 
+    private void cancelGuestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelGuestActionPerformed
+        Login lgn = new Login();
+        lgn.setVisible(true);
+        lgn.pack();
+        lgn.setLocationRelativeTo(null);
+        lgn.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+    }//GEN-LAST:event_cancelGuestActionPerformed
+
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        String name = txtName.getText();
-        String bpjs = noBPJS.getText();
-        String phone = telp.getText();
-        String year = age.getText();
         
         String apptime = null;
         if (Radio8AM.isSelected()){
@@ -351,90 +364,28 @@ public class Guest extends javax.swing.JFrame {
         }else if (Radio6PM.isSelected()){
             apptime = "6.00 PM";
         }
-        
-        String JK = null;
-        if (gender.getSelectedItem().equals("Female")){
-            JK = "Female";
-        }else if (gender.getSelectedItem().equals("Male")){
-            JK = "Male";
-        }else if (gender.getSelectedItem().equals("Rather not to say")){
-            JK = "Rather not to say";
-        }
-       
-        String ds = null;
-        if (disease.getSelectedItem().equals("Consultation")){
-            ds = "Consultation";
-        }else if (disease.getSelectedItem().equals("Early Childhood Psychologist")){
-            ds = "Early Childhood Psychologist";
-        }else if (disease.getSelectedItem().equals("Personality Psychologist")){
-            ds = "Personality Psychologist";
-        }else if (disease.getSelectedItem().equals("Counseling Psychologist")){
-            ds = "Counseling Psychologist";
-        }else if (disease.getSelectedItem().equals("Career psychologist")){
-            ds = "Career psychologist";
-        }
-        
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
         String appoinment = dateformat.format(appoinmentDate.getDate());
         
+        PreparedStatement ps;
+        String query = "INSERT INTO `data_user`(`name`, `BPJS`, `phone`, `gender`, `age`, `complaints`, `apt_date`, `apt_time`) VALUES ('"+ txtName.getText() +"','"+ noBPJS.getText() + "','" + telp.getText() + "','" + gender.getSelectedItem() + "','" + age.getText() + "','" + disease.getSelectedItem() + "','" + appoinment + "','" + apptime + "')";
         
-        try{
-            if (txtName.getText().equals("") || noBPJS.getText().equals("")|| telp.getText().equals("") || age.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Data cannot be empty", "Caution", JOptionPane.ERROR_MESSAGE);
-            hapusLayar();
-            }else{
-                PreparedStatement ps;
-                String query = "INSERT INTO 'data_user' (`name`, `BPJS`, `phone`, `gender`, `age`, `complaints`, `apt_date`, `apt_time`) VALUES (?,?,?,?,?,?,?,?)";
-                ps = Connector.getConnection().prepareStatement(query);
-                    if (ps.executeUpdate() > 0){
-                        JOptionPane.showMessageDialog(null, "Input Success");
-                    }else{
-                        JOptionPane.showMessageDialog(null, "Input Failed");
-                    }
+        try {
+            ps = Connector.getConnection().prepareStatement(query);
+            if (ps.executeUpdate()>0){
+                JOptionPane.showMessageDialog(null, "Register Success");
+                hapusLayar();
+            
             }
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(this, "You already registered", "Message", JOptionPane.WARNING_MESSAGE);
-            hapusLayar();
+        } catch (SQLException ex) {
+            Logger.getLogger(Guest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_submitActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Guest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Guest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Guest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Guest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Guest().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton Radio1PM;
@@ -443,17 +394,11 @@ public class Guest extends javax.swing.JFrame {
     private javax.swing.JTextField age;
     private javax.swing.JCheckBox agreement;
     private com.toedter.calendar.JDateChooser appoinmentDate;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.ButtonGroup buttonGroup3;
-    private javax.swing.ButtonGroup buttonGroup4;
-    private javax.swing.ButtonGroup buttonGroup5;
-    private javax.swing.ButtonGroup buttonGroup6;
-    private javax.swing.ButtonGroup buttonGroup7;
-    private javax.swing.ButtonGroup buttonGroup8;
+    private javax.swing.ButtonGroup buttonGroup;
     private javax.swing.JButton cancelGuest;
     private javax.swing.JComboBox<String> disease;
     private javax.swing.JComboBox<String> gender;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDayChooser jDayChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -464,6 +409,7 @@ public class Guest extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField noBPJS;

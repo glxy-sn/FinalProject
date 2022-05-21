@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 18, 2022 at 06:35 AM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 8.0.9
+-- Host: localhost
+-- Generation Time: May 21, 2022 at 07:14 PM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 7.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,6 +33,14 @@ CREATE TABLE `data_login` (
   `pass` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `data_login`
+--
+
+INSERT INTO `data_login` (`name`, `email`, `pass`) VALUES
+('Tiara', '', '1234'),
+('tiara', 's.tiaratsabita@gmail.com', '124');
+
 -- --------------------------------------------------------
 
 --
@@ -47,12 +55,27 @@ CREATE TABLE `data_user` (
   `age` int(3) NOT NULL,
   `complaints` varchar(255) NOT NULL,
   `apt_date` date NOT NULL,
-  `apt_time` time NOT NULL
+  `apt_time` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `data_user`
+--
+
+INSERT INTO `data_user` (`name`, `BPJS`, `phone`, `gender`, `age`, `complaints`, `apt_date`, `apt_time`) VALUES
+('Tiara', '123200052', '081902374', 'Male', 20, 'Personality Psychologist', '2022-05-07', '1.00 PM'),
+('tiara', '124', '240', 'Female', 21, 'Early Childhood Psychologist', '2022-05-14', '8.00 AM'),
+('fira', '213', '2134', 'Female', 21, 'Early Childhood Psychologist', '2022-05-14', '1.00 PM');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `data_login`
+--
+ALTER TABLE `data_login`
+  ADD PRIMARY KEY (`email`);
 
 --
 -- Indexes for table `data_user`

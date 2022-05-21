@@ -6,6 +6,11 @@ package finalproject;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.awt.event.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -20,6 +25,34 @@ public class RegistAdmin extends javax.swing.JFrame {
     public RegistAdmin() {
         initComponents();
     }
+    
+    private void hapusLayar(){
+        RegistName.setText("");
+        RegistEmail.setText("");
+        RegistPass.setText("");
+        RegistConfPass.setText("");
+    }
+    
+    private boolean checkEmail(String RegistEmail){
+        PreparedStatement ps;
+        ResultSet rs;
+        boolean checkEmail = false;
+        String query = "SELECT * FROM `data_login` WHERE `email` =?";
+        try {
+            ps = Connector.getConnection().prepareStatement(query);
+            ps.setString(1,RegistEmail);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                checkEmail = true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return checkEmail;
+    }
+    
+    
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,12 +69,12 @@ public class RegistAdmin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        RegistCreate = new javax.swing.JButton();
+        createRegAdmin = new javax.swing.JButton();
         RegistPass = new javax.swing.JPasswordField();
         RegistConfPass = new javax.swing.JPasswordField();
         RegistName = new javax.swing.JTextField();
         RegistEmail = new javax.swing.JTextField();
-        RegistCancel = new javax.swing.JButton();
+        cancelRegAdmin = new javax.swing.JButton();
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         jLabel4.setText("Admin Login");
@@ -63,10 +96,10 @@ public class RegistAdmin extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel7.setText("Confirm Password");
 
-        RegistCreate.setText("Create");
-        RegistCreate.addActionListener(new java.awt.event.ActionListener() {
+        createRegAdmin.setText("Create");
+        createRegAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RegistCreateActionPerformed(evt);
+                createRegAdminActionPerformed(evt);
             }
         });
 
@@ -82,7 +115,12 @@ public class RegistAdmin extends javax.swing.JFrame {
             }
         });
 
-        RegistCancel.setText("Cancel");
+        cancelRegAdmin.setText("Cancel");
+        cancelRegAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelRegAdminActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,9 +150,9 @@ public class RegistAdmin extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                                 .addComponent(RegistConfPass, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(RegistCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cancelRegAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(RegistCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(createRegAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(56, 56, 56))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(149, 149, 149)
@@ -144,8 +182,8 @@ public class RegistAdmin extends javax.swing.JFrame {
                     .addComponent(RegistConfPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RegistCreate)
-                    .addComponent(RegistCancel))
+                    .addComponent(createRegAdmin)
+                    .addComponent(cancelRegAdmin))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -160,56 +198,53 @@ public class RegistAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_RegistEmailActionPerformed
 
-    private void RegistCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistCreateActionPerformed
-        String RegName = RegistName.getText();
-        String RegEmail = RegistEmail.getText();
-        String RegPass = String.valueOf(RegistPass.getText());
-        String RegPassKonf = String.valueOf(RegistConfPass.getText());
-
-    }//GEN-LAST:event_RegistCreateActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+    private void createRegAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createRegAdminActionPerformed
+        String pass = String.valueOf(RegistPass.getPassword());
+        String rePass = String.valueOf(RegistConfPass.getPassword());
+        
+        
+        if (!pass.equals(rePass)){
+            JOptionPane.showMessageDialog(null, "Password is not match");
+            hapusLayar();
+        }else{
+            PreparedStatement ps;
+            String query = "INSERT INTO `data_login`(`name`, `email`, `pass`) VALUES ('"+ RegistName.getText() +"','"+ RegistEmail.getText() + "','" + pass +"')";
+        
+            try {
+                ps = Connector.getConnection().prepareStatement(query);
+                    if (ps.executeUpdate()>0){
+                        JOptionPane.showMessageDialog(null, "Register Success");
+                        hapusLayar();
+                    }
+            }catch (SQLException ex) {
+                Logger.getLogger(Guest.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            
         }
-        //</editor-fold>
+        
+        
+        
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegistAdmin().setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_createRegAdminActionPerformed
+
+    private void cancelRegAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelRegAdminActionPerformed
+        Admin adm = new Admin();
+        adm.setVisible(true);
+        adm.pack();
+        adm.setLocationRelativeTo(null);
+        adm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+    }//GEN-LAST:event_cancelRegAdminActionPerformed
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton RegistCancel;
     private javax.swing.JPasswordField RegistConfPass;
-    private javax.swing.JButton RegistCreate;
     private javax.swing.JTextField RegistEmail;
     private javax.swing.JTextField RegistName;
     private javax.swing.JPasswordField RegistPass;
+    private javax.swing.JButton cancelRegAdmin;
+    private javax.swing.JButton createRegAdmin;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
