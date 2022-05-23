@@ -22,7 +22,7 @@ public class Model {
     public Connection connections;
     public Statement statement;
     
-    static final String DBurl = "jdbc:mysql://localhost/fp_pbo";
+    static final String DBurl = "jdbc:mysql://localhost/fp_pbo?useLegacyDatetimeCode=false&serverTimezone=UTC";
     static final String DBusername = "root";
     static final String DBpassword = "";
     

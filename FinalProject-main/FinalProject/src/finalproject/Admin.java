@@ -56,6 +56,7 @@ public class Admin extends javax.swing.JFrame {
         jLabel1.setText(" Psychologist Appointment");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         jLabel2.setText("email");
@@ -171,16 +172,17 @@ public class Admin extends javax.swing.JFrame {
             rs = ps.executeQuery();
             if (rs.next()){
                 JOptionPane.showMessageDialog(null, "Login Success");
+                Dashboard_Admin da = new Dashboard_Admin();
+                da.setVisible(true);
+                da.pack();
+                da.setLocationRelativeTo(null);
+                da.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                this.dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Login Failed");
             }
             
-            Dashboard_Admin da = new Dashboard_Admin();
-            da.setVisible(true);
-            da.pack();
-            da.setLocationRelativeTo(null);
-            da.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            this.dispose();
+            
         } catch (SQLException ex) {
             Logger.getLogger(Admin.class.getName()).log(Level.SEVERE, null, ex);
         }

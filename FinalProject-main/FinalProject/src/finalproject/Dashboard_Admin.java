@@ -5,6 +5,13 @@
  */
 package finalproject;
 
+import javax.swing.JFrame;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author mfaja
@@ -30,6 +37,8 @@ public class Dashboard_Admin extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        delete = new javax.swing.JButton();
+        backs = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,10 +55,24 @@ public class Dashboard_Admin extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(table);
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Show");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        delete.setText("Delete");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+
+        backs.setText("Back");
+        backs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backsActionPerformed(evt);
             }
         });
 
@@ -60,21 +83,27 @@ public class Dashboard_Admin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(42, 42, 42)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
-                .addGap(29, 29, 29)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(backs, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(103, 103, 103))))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(delete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(backs)
+                .addGap(38, 38, 38))
         );
 
         pack();
@@ -85,6 +114,45 @@ public class Dashboard_Admin extends javax.swing.JFrame {
         Model md = new Model();
         md.table(this);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void backsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backsActionPerformed
+            Admin da = new Admin();
+            da.setVisible(true);
+            da.pack();
+            da.setLocationRelativeTo(null);
+            da.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.dispose();
+    }//GEN-LAST:event_backsActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        PreparedStatement ps;
+        ResultSet rs;
+        int row = table.getSelectedRow();
+        String cell = table.getModel().getValueAt(row,1).toString();
+        System.out.println(cell);
+        String sql = "DELETE FROM data_user WHERE BPJS LIKE '"+cell+"' " ;
+        System.out.println(sql);
+
+        try {
+            ps = Connector.getConnection().prepareStatement(sql);
+            ps.execute();
+            System.out.println("Berhasil");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+
+        DefaultTableModel table1 = (DefaultTableModel) table.getModel();
+        if (table.getSelectedRowCount()==1){
+            table1.removeRow(table.getSelectedRow());
+        } else {
+            if (table.getSelectedRow()==0){
+                System.out.println("Table kosong");
+            } else{
+                System.out.println("Tidak boleh lebih dari satu");
+            }
+        }
+    }//GEN-LAST:event_deleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -123,6 +191,8 @@ public class Dashboard_Admin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backs;
+    private javax.swing.JButton delete;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable table;
